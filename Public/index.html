@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<!--Designed By ALpha-->
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Farmersworld Bot</title>
+        <!-- Vendor styles -->
+        <link rel="stylesheet" href="vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css">
+        <link rel="stylesheet" href="vendors/bower_components/animate.css/animate.min.css">
+        <link rel="stylesheet" href="vendors/bower_components/jquery.scrollbar/jquery.scrollbar.css">
+        <link rel="stylesheet" href="vendors/bower_components/fullcalendar/dist/fullcalendar.min.css">
+        <link ref="stylesheet" type="text/css" href="dist/snackbar.min.css" />
+        <script src="dist/snackbar.min.js"></script>
+        <script src="jquery-3.6.0.min.js"></script>
+        <script src="waxjs.js"></script>
+        <script src="tasktimer.min.js"></script>   
+        <!-- App styles -->
+        <link rel="stylesheet" href="css/app.min.css">
+        <link rel="stylesheet" href="css/snackbar.css">
+        <link rel="stylesheet" href="css/tab.css">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+
+    <body data-sa-theme="1">
+        <main class="main">
+            <div class="page-loader">
+                <div class="page-loader__spinner">
+                    <svg viewBox="25 25 50 50">
+                        <circle cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+                    </svg>
+                </div>
+            </div>
+
+            <header class="header">
+                <div class="navigation-trigger hidden-xl-up" data-sa-action="aside-open" data-sa-target=".sidebar">
+                    <i class="zmdi zmdi-menu"></i>
+                </div>
+
+                <div class="logo hidden-sm-down">
+                    <h1 class="version"><a href="#"></a></h1>
+                </div>
+
+                <ul class="top-nav">
+               </ul>
+
+                <div class="clock hidden-md-down">
+                    <div class="time">
+                        <span class="hours"></span>
+                        <span class="min"></span>
+                        <span class="sec"></span>
+                    </div>
+                </div>
+            </header>
+
+            <aside class="sidebar">
+                <div class="scrollbar-inner">
+
+                    <div class="user">
+                        <div class="user__info" data-toggle="dropdown">
+                            <img class="user__img" src="img/fw.png" alt="">
+                            <div>
+                                <div class="user__name">Loading...</div>
+                            </div>
+                        </div>
+                      
+                    </div>
+
+                    <ul class="navigation">
+
+                        <li class="navigation">
+                            <a href="https://play.farmersworld.io/" target="_blank"><i class="zmdi zmdi-home"></i> Play Farmersworld</a>
+                        </li>
+
+                        <li class="navigation">
+                            <a href="https://wallet.wax.io/dashboard" target="_blank"><i class="zmdi zmdi-balance-wallet zmdi-hc-fw"></i> Wax Wallet</a>
+                        </li>
+
+                        <li class="navigation">
+                            <a href="https://wax.alcor.exchange/swap" target="_blank"><i class="zmdi zmdi-trending-up"></i> Alcor Exchange</a>
+                        </li>
+
+                        <li class="navigation">
+                            <a href="https://wax.atomichub.io/market" target="_blank"><i class="zmdi zmdi-shopping-cart zmdi-hc-fw"></i> Atomichub</a>
+                        </li>
+
+                        <li class="navigation">
+                            <a href="https://wax.bloks.io/" target="_blank"><i class="zmdi zmdi-code-setting zmdi-hc-fw"></i> Wax Block</a>
+                        </li>
+
+                        <li class="navigation">
+                          <a href="https://www.youtube.com/watch?v=LWNNOgc4MqY" target="_blank"><i class="zmdi zmdi-youtube-play zmdi-hc-fw"></i> วิธีสร้าง Line Token</a>
+                        </li>
+
+                      <li class="navigation">
+                        <a href="https://romsai.herokuapp.com/" target="_blank"><i class="zmdi zmdi-mail-reply-all zmdi-hc-fw"></i> รัน bot บน heroku</a>
+                      </li>
+
+                      
+                    </ul>
+                </div>
+            </aside>
+
+            <section class="content">
+                <header class="content__title">
+                    <!--<h5 id="endpointShow"></h5>-->
+                </header>
+
+                <div class="row quick-stats">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="quick-stats__item">
+                            <div class="quick-stats__info">
+                                <h2 class="waxprice">Loading...</h2>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="quick-stats__item">
+                            <div class="quick-stats__info">
+                                <h2 class="fwwprice">Loading...</h2>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="quick-stats__item">
+                            <div class="quick-stats__info">
+                                <h2 class="fwfprice">Loading...</h2>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="quick-stats__item">
+                            <div class="quick-stats__info">
+                                <h2 class="fwgprice">Loading...</h2>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                       
+
+                <div class="modal fade" id="modal-no-backdrop" data-backdrop="false" tabindex="-1">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h5 class="modal-title pull-left">กรุณาเลือก Endpoint</h5>
+                          </div>
+                          <div class="modal-body">
+                            <div class="card">
+                              <select class="select2" data-minimum-results-for-search="Infinity" id="url">
+                                <option></option>
+                                <option></option>                                                    
+                                <option></option>
+                                <option></option>
+                                <option></option>
+                                <option></option>
+                                <option></option>
+                                <option></option>
+                                <option></option>                                                            
+                                <option></option>
+                                <option></option>                                                            
+                                <option></option>
+                            </select>
+                            </div>                          
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-link" data-dismiss="modal" id="saveModal">Save changes</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+                <div data-columns>            
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="profileTitle" class="toolbar">Resource</div>
+                            <div id="cpuShow" class="btn btn-outline-primary">Loading...</div><br><br>
+                            <div id="energyShow" class="btn btn-outline-info">Loading...</div><br><br>
+                            <div id="waxcoinShow" class="btn btn-outline-warning">Loading...</div><br><br>
+                            <div id="feeShow" class="btn btn-outline-secondary">Loading...</div><br><br>
+                            <div id="fwwShow" class="btn btn-dark">Loading...</div><div id="woodShow" class="btn btn-light">Loading...</div><br><br>
+                            <div id="fwfShow" class="btn btn-dark">Loading...</div><div id="meatShow" class="btn btn-light">Loading...</div><br><br>
+                            <div id="fwgShow" class="btn btn-dark">Loading...</div><div id="goldShow" class="btn btn-light">Loading...</div><br><br> 
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="toolbar">Mining</div>
+                            <div class="toolShow">Loading...</div>
+                            <div class="memShow"></div><br><br>
+                            <h6 id="coinmemShow" class="btn btn-outline-warning">Loading...</h6>
+                        </div>
+                    </div>
+     
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="toolbar">Plot</div>
+                            <h6 class="plotShow"></h6>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">                                                 
+                                <div class="tab">
+                                    <ul class="nav nav-pills nav-fill">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" onclick="tab(event, 'refil')" id="defaultOpen">Refil & Repair</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" onclick="tab(event, 'endpoint')">Endpoint</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" onclick="tab(event, 'line')">Line</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" onclick="tab(event, 'theme')">Theme</a>
+                                        </li>
+                                    </ul><!--
+                                    <button class="nav-item" onclick="tab(event, 'refil')" id="defaultOpen">Refil & Repair</button>
+                                    <button class="tablinks" onclick="tab(event, 'endpoint')">Endpoint</button>
+                                    <button class="tablinks" onclick="tab(event, 'line')">Line</button>
+                                    <button class="tablinks" onclick="tab(event, 'theme')">Theme</button>-->
+                                  </div>
+
+                                  <br><br>
+                                  
+                                  <div id="refil" class="tabcontent">
+                                    <div class="btn btn-outline-warning">Repair </div>&nbsp; &nbsp; &nbsp; &nbsp;<input style="width: 50px;" id="repairInput">
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <div class="toggle-switch toggle-switch--blue">
+                                      <input type="checkbox" class="toggle-switch__checkbox" id="repairToggle" onclick="repairToggle()">
+                                      <i class="toggle-switch__helper"></i>
+                                    </div>  
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <div id="repairStatus" class="btn btn-dark">Loading...</div>
+                                    <br><br>
+                                    <div class="btn btn-outline-primary">Energy </div>&nbsp; &nbsp; &nbsp; &nbsp;<input style="width: 50px;" id="refilInput" >  
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <div class="toggle-switch toggle-switch--blue">
+                                      <input type="checkbox" class="toggle-switch__checkbox" id="refilToggle" onclick="refilToggle()">
+                                      <i class="toggle-switch__helper"></i>
+                                    </div>
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <div id="refilStatus" class="btn btn-dark">Loading...</div>                                   
+                                    <br><br>
+
+                                    <div class="btn btn-outline-secondary">Mem Wood</div>&nbsp; &nbsp; <input style="width: 50px;" id="memwoodInput" >  
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <div class="toggle-switch toggle-switch--blue">
+                                      <input type="checkbox" class="toggle-switch__checkbox" id="memwoodToggle" onclick="memwoodToggle()">
+                                      <i class="toggle-switch__helper"></i>
+                                    </div>
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <div id="memwoodStatus" class="btn btn-dark">Loading...</div>
+                                    <br><br>
+
+    
+
+
+                                  <div class="btn btn-outline-secondary">Mem Gold</div>&nbsp; &nbsp; &nbsp; <input style="width: 50px;" id="memgoldInput" >  
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <div class="toggle-switch toggle-switch--blue">
+                                      <input type="checkbox" class="toggle-switch__checkbox" id="memgoldToggle" onclick="memgoldToggle()">
+                                      <i class="toggle-switch__helper"></i>
+                                    </div>
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <div id="memgoldStatus" class="btn btn-dark">Loading...</div>
+                                    <br><br>
+
+                                    <div class="btn btn-outline-secondary">Mem Food</div>&nbsp; &nbsp; &nbsp;<input style="width: 50px;" id="memfoodInput" >  
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <div class="toggle-switch toggle-switch--blue">
+                                      <input type="checkbox" class="toggle-switch__checkbox" id="memfoodToggle" onclick="memfoodToggle()">
+                                      <i class="toggle-switch__helper"></i>
+                                    </div>
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <div id="memfoodStatus" class="btn btn-dark">Loading...</div>
+                                    <br><br>
+                                
+                                    <div style="color: red;">*** ช่อง Member ให้ใส่จำนวน Member ที่เรามีในสายนั้นๆ ***</div> 
+                                    <br>
+                                    <div style="color: red;">*** ถ้าใช้ store mine ให้ตั้ง เติมเนื้อกับทองไว้ สูงๆ เพราะถ้า ค่าซ่อมกับ เนื้อเหลือน้อย แล้วจำนวนการขุดเยอะจะไม่พอ ***</div>   
+                                    <br>
+                                    <button class="btn btn-primary btn--icon-text" onclick="refilSave()">Refil & Repair Save</button>   
+                                    <br><br>        
+                                  </div>
+
+                                  
+                                  <div id="endpoint" class="tabcontent">
+                                    <div id="endpointShow" class="btn btn-dark">Loading...</div>
+                                      &nbsp; &nbsp; &nbsp; &nbsp;       
+                                    <button class="btn btn-success btn--icon-text" onclick="modalLoad()"><i class="zmdi zmdi-refresh"></i>เปลี่ยน Endpoint</button>
+                                    <br><br>
+                                    <button type="button" class="btn btn-outline-danger">Random</button>
+                                    &nbsp; &nbsp;
+                                    <input style="width: 50px;" type="number" min="5" id="randomEndpoint">
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <div class="toggle-switch toggle-switch--blue">
+                                        <input type="checkbox" class="toggle-switch__checkbox" id="stackToggle" onclick="failStackToggle()">
+                                        <i class="toggle-switch__helper"></i>
+                                    </div>
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <div id="failStatus" class="btn btn-dark">Loading...</div>
+                                    <br><br>
+                                    *** ตั้งไว้ว่า ขุด หรือ เคลมเหรียญไม่สำเร็จติดกันกี่ครั้ง แล้วจะ random endpoint ***
+                                    <br><br>
+                                    <button class="btn btn-primary btn--icon-text" onclick="failSave()">Random Endpoint Save</button> 
+                                  </div>
+
+
+
+                                  
+                                  <div id="line" class="tabcontent">
+                                    <div class="btn btn-outline-success">Line </div>
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <div class="toggle-switch toggle-switch--blue">
+                                      <input type="checkbox" class="toggle-switch__checkbox" id="lineToggle" onclick="lineToggle()">
+                                      <i class="toggle-switch__helper"></i>
+                                    </div>
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <div id="lineStatus" class="btn btn-dark">Loading...</div>
+                                    <br><br>
+                                    <button class="btn btn-primary btn--icon-text" onclick="lineSave()">Line Notify Save</button> 
+                                  </div>
+
+
+
+
+                                  <div id="theme" class="tabcontent">                             
+                                        <a href="#" data-toggle="dropdown"><button class="btn btn-info btn--icon-text"><i class="zmdi zmdi-refresh"></i>เปลี่ยน Theme</button></a>                                       
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <div class="dropdown-item theme-switch">
+                                                Theme Switch
+                                                
+                                                <div class="btn-group btn-group--colors mt-2 d-block" id="themeRadio" data-toggle="buttons">
+                                                    <label class="btn border-0" style="background-color: #273C5B"><input name="theme" type="radio" value="1" autocomplete="off"></label>
+                                                    <label class="btn border-0" style="background-color: #7b3d54"><input name="theme" type="radio" value="2" autocomplete="off"></label>
+                                                    <label class="btn border-0" style="background-color: #174042"><input name="theme" type="radio" value="3" autocomplete="off"></label>
+                                                    <label class="btn border-0" style="background-color: #383844"><input name="theme" type="radio" value="4" autocomplete="off"></label>
+                                                    <label class="btn border-0" style="background-color: #49423F"><input name="theme" type="radio" value="5" autocomplete="off"></label>
+                
+                                                    <br>
+                
+                                                    <label class="btn border-0" style="background-color: #5e3d22"><input name="theme" type="radio" value="6" autocomplete="off"></label>
+                                                    <label class="btn border-0" style="background-color: #234d6d"><input name="theme" type="radio" value="7" autocomplete="off"></label>
+                                                    <label class="btn border-0" style="background-color: #3b5e5e"><input name="theme" type="radio" value="8" autocomplete="off"></label>
+                                                    <label class="btn border-0" style="background-color: #0a4c3e"><input name="theme" type="radio" value="9" autocomplete="off"></label>
+                                                    <label class="btn border-0" style="background-color: #772036"><input name="theme" type="radio" value="10" autocomplete="off"></label>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="dropdown-item" data-sa-action="fullscreen">Fullscreen</a>
+                                        </div>
+                          
+
+                              
+                                    <br><br>
+                                    <button class="btn btn-primary btn--icon-text" onclick="themeSave()">Theme Save</button> 
+                                  </div>
+                                  
+                                
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h6 class="toolbar">Peerawat Setup Log</h6>
+                                            <br><br>
+                                            <textarea rows="35" cols="80" id="setupLog" readonly style="color:white;background-color:transparent; border: 0px;"></textarea>                  
+                                        </div>
+                                    </div>
+                           
+
+                                
+                            </div><!--cardbody-->
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="toolbar">Peerawat Main Log</h6>
+                                <br><br>
+                                <textarea rows="35" cols="80" id="txtArea" readonly style="color:white;background-color:transparent; border: 0px;"></textarea>
+                                <div id="fail_snackbar"></div>   
+                                <div id="suc_snackbar"></div>
+                                <div class="flot-chart flot-line"></div>
+                                <div class="flot-chart-legends flot-chart-legends--line"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="toolbar">Peerawat Chat</h6>
+                                <br><br>
+                                <iframe src="https://tonaot.top/" frameborder="0" width="100%" height="500"></iframe>
+         
+                            </div>
+                        </div>
+                    </div>
+
+                </div>             
+
+                <footer class="footer hidden-xs-down">
+                   Romsai & Peerawat  All rights reserved.
+                    <ul class="nav footer__nav">
+                        
+                    </ul>
+                </footer>
+            </section>
+        </main>
+
+       
+
+        <!-- Javascript -->
+        <!-- Vendors -->
+        <script src="vendors/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="vendors/bower_components/popper.js/dist/umd/popper.min.js"></script>
+        <script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="vendors/bower_components/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+        <script src="vendors/bower_components/jquery-scrollLock/jquery-scrollLock.min.js"></script>
+
+        <script src="vendors/bower_components/salvattore/dist/salvattore.min.js"></script>
+        <script src="vendors/bower_components/flot/jquery.flot.js"></script>
+        <script src="vendors/bower_components/flot/jquery.flot.resize.js"></script>
+        <script src="vendors/bower_components/flot.curvedlines/curvedLines.js"></script>
+        <script src="vendors/bower_components/jqvmap/dist/jquery.vmap.min.js"></script>
+        <script src="vendors/bower_components/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+        <script src="vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+        <script src="vendors/bower_components/peity/jquery.peity.min.js"></script>
+        <script src="vendors/bower_components/moment/min/moment.min.js"></script>
+        <script src="vendors/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+
+        <!-- Charts and maps-->
+        <script src="demo/js/flot-charts/curved-line.js"></script>
+        <script src="demo/js/flot-charts/line.js"></script>
+        <script src="demo/js/flot-charts/dynamic.js"></script>
+        <script src="demo/js/flot-charts/chart-tooltips.js"></script>
+        <script src="demo/js/other-charts.js"></script>
+        <script src="demo/js/jqvmap.js"></script>
+
+        <!-- App functions and actions -->
+        <script src="js/app.min.js"></script>  
+        <!--Wax script-->
+        <script src="main.js"></script> 
+    </body>
+
+</html>
+
+
