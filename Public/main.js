@@ -873,7 +873,7 @@
 
         //เช็ค store mine  
         //if ((element.next_availability + (hourNow * (multi * 2))) - Date.now()/1000 < 0){  
-        if ((element.next_availability + ((hourNow * multi )/ 1000)) - Date.now()/1000 < 0){    
+        if ((element.next_availability + ((hourNow * (multi * 2))/ 1000)) - Date.now()/1000 < 0){    
           let config = {
                 actions: [{
                   account: 'farmersworld',
