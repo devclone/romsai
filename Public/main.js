@@ -298,7 +298,7 @@
           document.getElementById("setupLog").value += "Peerawat Ai: Bot เป็น Version ล่าสุดแล้ว\n";
         }
         else {
-          document.getElementById("setupLog").value += "Peerawat Ai: มี Bot version " + res.data + " ใหม่กว่า version ที่คุณใช้ ";
+          document.getElementById("setupLog").value += "Peerawat Ai: มี Bot version " + res.data + " ใหม่กว่า version ที่คุณใช้\n";
           document.getElementById("setupLog").value += "Peerawat Ai: Link download https://github.com/godmoan/romsai.git";
           
         }
