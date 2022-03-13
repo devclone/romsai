@@ -1,4 +1,4 @@
-    let version = "v.3.0.3";
+    let version = "v.3.0.4";
     document.getElementsByClassName("version")[0].innerHTML =  "Romsai Bot " + version;
     let endpointJson = '{"u1": "https://chain.wax.io", "u2": "https://wax.eu.eosamsterdam.net", "u3": "https://wax.blokcrafters.io", "u4": "https://api.wax.alohaeos.com", "u5": "https://api.waxsweden.org", "u6": "https://wax.pink.gg", "u7": "https://wax.dapplica.io","u8": "https://wax.eosphere.io", "u9": "https://api.wax.greeneosio.com", "u10": "https://wax.cryptolions.io", "u11": "https://wax.eu.eosamsterdam.net", "u12": "https://api.wax.bountyblok.io"}';
     let objEndpoint = JSON.parse(endpointJson);
@@ -49,7 +49,6 @@
     }
     document.getElementById("defaultOpen").click();
     //tab
-   
   
     let callbackBtn = document.querySelector("#saveModal");
     let failBar = document.getElementById("fail_snackbar");
@@ -66,7 +65,7 @@
       await login();             
     })
 
-  
+
       
       const fwToolsColor = {"Wood": "Sienna", "Food": "DodgerBlue", "Gold": "Gold"};
       const fwMembersColor = {"Bronze Member": "Khaki", "Silver Member": "Silver", "Gold Member": "Yellow"};
@@ -315,6 +314,15 @@
         waxAutoSigningURL: "https://api-idm.wax.io/v1/accounts/auto-accept/"
     });
 
+    function rom() {
+      var audio = new Audio('src/pee.mp3');
+      if(localStorage.getItem("rom") != "false") {
+        audio.play();
+      }
+      
+    }
+  
+
   
     async function login() {    
       try {
@@ -327,7 +335,7 @@
         var dateTime = now.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
               document.title = userAccount;
         accountName = userAccount;
-  
+        rom();
         sucBar.className = "show";
         sucBar.innerHTML = "Login สำเร็จ !!!"
         chkVer();//check version
@@ -814,7 +822,7 @@
           case "Gold": {
             if(localStorage.getItem("memgoldToggle") == "true") {
               storeMine = true;
-              multi = parseInt(localStorage.getItem("memgold") + 2);            
+              multi = parseInt(localStorage.getItem("memgold")) + 1;            
             }
             else { storeMine = false;  }
             break;
@@ -897,14 +905,14 @@
             sucBar.className = "show";
             sucBar.innerHTML = "Mine Success !!!"
             setTimeout(function(){ sucBar.className = sucBar.className.replace("show", ""); }, 10000);
-            document.getElementById("txtArea").value += dateTime + ": Mine Success !!! \n";
+            document.getElementById("txtArea").value += dateTime + ": Mine" + toolName.template_name + "สำเร็จ !!!\n";
           }
           else{ 
             failStack ++;
             failBar.className = "show";
             failBar.innerHTML = "ล้มเหลว ไม่สามารถ ขุด ได้ !!!";
             setTimeout(function(){ failBar.className = failBar.className.replace("show", ""); }, 3000);
-            document.getElementById("txtArea").value += dateTime + ": ****ล้มเหลว**** ไม่สามารถ ขุดได้ !!! [Fail : " + failStack + "ครั้ง] \n";
+            document.getElementById("txtArea").value += dateTime + ": ****ล้มเหลว**** ไม่สามารถ ขุด" + toolName.template_name + "ได้ !!! [Fail : " + failStack + "ครั้ง] \n";
           }
         }//เช็ค store mine
 
@@ -950,14 +958,14 @@
             sucBar.className = "show";
             sucBar.innerHTML = "Repair Success !!!"
             setTimeout(function(){ sucBar.className = sucBar.className.replace("show", ""); }, 10000);
-            document.getElementById("txtArea").value += dateTime + ": Repair สำเร็จ !!! \n";
+            document.getElementById("txtArea").value += dateTime + ": Repair " + toolName.template_name + " สำเร็จ !!! \n";
           }
           else{
             //console.log(`Id ${ element.asset_id}, REPAIR FAILED! ${ret}`);
             failBar.className = "show";
             failBar.innerHTML = "ล้มเหลว Repair ไม่สำเร็จ !!!";
             setTimeout(function(){ failBar.className = failBar.className.replace("show", ""); }, 3000);
-            document.getElementById("txtArea").value += dateTime + ": ****ล้มเหลว**** Repair ไม่สำเร็จ !!! \n";
+            document.getElementById("txtArea").value += dateTime + ": ****ล้มเหลว**** Repair " + toolName.template_name + " ไม่สำเร็จ !!! \n";
           }
         }
       });
@@ -1132,6 +1140,7 @@
           key_type: key_type,
           lower_bound: bound,
           upper_bound: bound,
+          limit: 20,
           reverse: false,           // Optional: Get reversed data
       });
       } catch(e) {     
