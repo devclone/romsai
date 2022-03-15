@@ -1,4 +1,4 @@
-    let version = "v.3.0.4";
+    let version = "v.3.0.5";
     document.getElementsByClassName("version")[0].innerHTML =  "Romsai Bot " + version;
     let endpointJson = '{"u1": "https://chain.wax.io", "u2": "https://wax.eu.eosamsterdam.net", "u3": "https://wax.blokcrafters.io", "u4": "https://api.wax.alohaeos.com", "u5": "https://api.waxsweden.org", "u6": "https://wax.pink.gg", "u7": "https://wax.dapplica.io","u8": "https://wax.eosphere.io", "u9": "https://api.wax.greeneosio.com", "u10": "https://wax.cryptolions.io", "u11": "https://wax.eu.eosamsterdam.net", "u12": "https://api.wax.bountyblok.io"}';
     let objEndpoint = JSON.parse(endpointJson);
@@ -299,7 +299,7 @@
         else {
           document.getElementById("setupLog").value += "Peerawat Ai: มี Bot version " + res.data + " ใหม่กว่า version ที่คุณใช้\n";
           document.getElementById("setupLog").value += "Peerawat Ai: Link download https://github.com/godmoan/romsai.git";
-          
+          alert("มี Version ใหม่ให้ Download");
         }
       })
       .catch((err) => {
@@ -408,7 +408,6 @@
         document.getElementById('memwoodStatus').innerHTML = "ปิดการใช้งาน";
       }
       else {
-        repairValue = localStorage.getItem("memwood");
         document.getElementById("setupLog").value += dateTime + ": Store Mine Wood เปิดการใช้งาน\n";
         document.getElementById("memwoodInput").value = localStorage.getItem("memwood");
         document.getElementById("memwoodToggle").checked = true
@@ -424,7 +423,6 @@
         document.getElementById('memgoldStatus').innerHTML = "ปิดการใช้งาน";
       }
       else {
-        repairValue = localStorage.getItem("memgold");
         document.getElementById("setupLog").value += dateTime + ": Store Mine Gold เปิดการใช้งาน";
         document.getElementById("memgoldInput").value = localStorage.getItem("memgold");
         document.getElementById("memgoldToggle").checked = true
@@ -440,7 +438,6 @@
         document.getElementById('memfoodStatus').innerHTML = "ปิดการใช้งาน";
       }
       else {
-        repairValue = localStorage.getItem("memfood");
         document.getElementById("setupLog").value += dateTime + ": Store Mine Food เปิดการใช้งาน";
         document.getElementById("memfoodInput").value = localStorage.getItem("memfood");
         document.getElementById("memfoodToggle").checked = true
@@ -865,14 +862,14 @@
                 sucBar.className = "show";
                 sucBar.innerHTML = "Mine Success !!!"
                 setTimeout(function(){ sucBar.className = sucBar.className.replace("show", ""); }, 10000);
-                document.getElementById("txtArea").value += dateTime + ": Mine Success !!! \n";
+                document.getElementById("txtArea").value += dateTime + ": Mine " + toolName.template_name + "สำเร็จ !!!\n";
               }
               else{ 
                 failStack ++;
                 failBar.className = "show";
                 failBar.innerHTML = "ล้มเหลว ไม่สามารถ ขุด ได้ !!!";
                 setTimeout(function(){ failBar.className = failBar.className.replace("show", ""); }, 3000);
-                document.getElementById("txtArea").value += dateTime + ": ****ล้มเหลว**** ไม่สามารถ ขุดได้ !!! [Fail : " + failStack + "ครั้ง] \n";
+                document.getElementById("txtArea").value += dateTime + ": ****ล้มเหลว**** ไม่สามารถ ขุด" + toolName.template_name + "ได้ !!! [Fail : " + failStack + "ครั้ง] \n";
               }
             }
         //}
@@ -905,7 +902,7 @@
             sucBar.className = "show";
             sucBar.innerHTML = "Mine Success !!!"
             setTimeout(function(){ sucBar.className = sucBar.className.replace("show", ""); }, 10000);
-            document.getElementById("txtArea").value += dateTime + ": Mine" + toolName.template_name + "สำเร็จ !!!\n";
+            document.getElementById("txtArea").value += dateTime + ": Mine " + toolName.template_name + "สำเร็จ !!!\n";
           }
           else{ 
             failStack ++;
