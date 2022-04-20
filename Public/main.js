@@ -1,4 +1,4 @@
-    let version = "v.3.0.5";
+    let version = "v.3.0.6";
     document.getElementsByClassName("version")[0].innerHTML =  "Romsai Bot " + version;
     let endpointJson = '{"u1": "https://chain.wax.io", "u2": "https://wax.eu.eosamsterdam.net", "u3": "https://wax.blokcrafters.io", "u4": "https://api.wax.alohaeos.com", "u5": "https://api.waxsweden.org", "u6": "https://wax.pink.gg", "u7": "https://wax.dapplica.io","u8": "https://wax.eosphere.io", "u9": "https://api.wax.greeneosio.com", "u10": "https://wax.cryptolions.io", "u11": "https://wax.eu.eosamsterdam.net", "u12": "https://api.wax.bountyblok.io"}';
     let objEndpoint = JSON.parse(endpointJson);
@@ -819,7 +819,7 @@
           case "Gold": {
             if(localStorage.getItem("memgoldToggle") == "true") {
               storeMine = true;
-              multi = parseInt(localStorage.getItem("memgold")) + 1;            
+              multi = parseInt(localStorage.getItem("memgold"));            
             }
             else { storeMine = false;  }
             break;
