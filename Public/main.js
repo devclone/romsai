@@ -819,7 +819,7 @@
           case "Gold": {
             if(localStorage.getItem("memgoldToggle") == "true") {
               storeMine = true;
-              multi = parseInt(localStorage.getItem("memgold"));            
+              multi = parseInt((localStorage.getItem("memgold"))*2);            
             }
             else { storeMine = false;  }
             break;
